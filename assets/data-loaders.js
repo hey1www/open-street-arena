@@ -20,7 +20,7 @@
   };
 
   const CONFIG = {
-    DATA_SOURCE: "local-json",
+    DATA_SOURCE: "local-csv",
     SHEETS_CSV_URL: "",
   };
 
@@ -30,7 +30,7 @@
     if (sourceParam && sourceParam.toLowerCase() === "sheets") {
       return "sheets-csv";
     }
-    return CONFIG.DATA_SOURCE || "local-json";
+    return CONFIG.DATA_SOURCE || "local-csv";
   }
 
   function composeDateTime(dateStr, timeStr) {
@@ -131,8 +131,8 @@
   async function loadFromSheetsCsv() {
     const url = CONFIG.SHEETS_CSV_URL && CONFIG.SHEETS_CSV_URL.trim();
     if (!url) {
-      console.warn("未設定 SHEETS_CSV_URL，回退至本地 JSON");
-      return loadFromLocalJson();
+      console.warn("未設定 SHEETS_CSV_URL，回退至本地 CSV");
+      return loadFromLocalCsv();
     }
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
@@ -151,13 +151,14 @@
   async function loadIncidents(searchParams) {
     const source = detectDataSource(searchParams);
     switch (source) {
+      case "local-json":
+        return loadFromLocalJson();
       case "local-csv":
         return loadFromLocalCsv();
       case "sheets-csv":
         return loadFromSheetsCsv();
-      case "local-json":
       default:
-        return loadFromLocalJson();
+        return loadFromLocalCsv();
     }
   }
 

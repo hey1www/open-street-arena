@@ -53,8 +53,8 @@ open-street-arena/
 
 | 模式          | 設定方式                                   | 備註 |
 |---------------|---------------------------------------------|------|
-| 本地 JSON     | `CONFIG.DATA_SOURCE = "local-json"`         | 預設值，讀取 `./data/incidents.json` |
-| 本地 CSV      | `CONFIG.DATA_SOURCE = "local-csv"`          | 讀取 `./data/incidents.csv`，由 Papa Parse 解析 |
+| 本地 CSV      | `CONFIG.DATA_SOURCE = "local-csv"`          | **預設值**，讀取 `./data/incidents.csv`，由 Papa Parse 解析 |
+| 本地 JSON     | `CONFIG.DATA_SOURCE = "local-json"`         | 選配備援，讀取 `./data/incidents.json` |
 | Google Sheets | `CONFIG.DATA_SOURCE = "sheets-csv"` <br> 或 URL 攜帶 `?source=sheets` | 需於 `CONFIG.SHEETS_CSV_URL` 填入公開的 CSV 下載連結 |
 
 ### 快速切換流程
@@ -67,7 +67,7 @@ open-street-arena/
    - 將 URL 貼入 `CONFIG.SHEETS_CSV_URL`。
    - 佈署後，每次載入頁面都會從該 CSV 即時抓取資料（瀏覽器端解析）。
 
-> 📌 牢記：所有資源引用皆以相對路徑呈現，例如 `./assets/app.js`、`./data/incidents.json`。在子路徑部署時若使用 `/assets/...` 會造成 404。
+> 📌 牢記：所有資源引用皆以相對路徑呈現，例如 `./assets/app.js`、`./data/incidents.csv`（或 `./data/incidents.json`）。在子路徑部署時若使用 `/assets/...` 會造成 404。
 
 ## 離線依賴
 
@@ -104,7 +104,7 @@ id, title, date, time, period_zh, location, district_abbr, lat, lng, category, s
 
 ### 新增事件
 
-1. 擇一維護 `data/incidents.json` 或 `data/incidents.csv`（建議僅使用其中一種，避免雙邊不同步）。
+1. 擇一維護 `data/incidents.json` 或 `data/incidents.csv`（預設使用 CSV，建議僅維護其中一種，避免雙邊不同步）。
 2. `district_abbr` 必須對應 `assets/districts.js` 內的縮寫（可追加映射）。
 3. 若不想公開精確座標，可自行加入 ±20–60 m 的抖動後再填入。
 4. 推送後重新整理頁面即可看到更新。
