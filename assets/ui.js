@@ -47,9 +47,9 @@
     const allOption = select.querySelector('option[value="all"]');
     if (allOption) {
       allOption.dataset.i18n = "controls.allDistricts";
-      if (window.I18N) {
-        allOption.textContent = window.I18N.t("controls.allDistricts");
-      }
+      allOption.textContent = window.I18N
+        ? window.I18N.t("controls.allDistricts")
+        : "全部地區";
     }
 
     if (select.querySelector(`option[value="${previousValue}"]`)) {
@@ -72,20 +72,18 @@
       const option = document.createElement("option");
       option.value = key;
       option.dataset.i18n = `periodLabels.${key}`;
-      if (window.I18N) {
-        option.textContent = window.I18N.t(`periodLabels.${key}`);
-      } else {
-        option.textContent = key;
-      }
+      option.textContent = window.I18N
+        ? window.I18N.t(`periodLabels.${key}`)
+        : key;
       select.appendChild(option);
     });
 
     const allOption = select.querySelector('option[value="all"]');
     if (allOption) {
       allOption.dataset.i18n = "controls.allPeriods";
-      if (window.I18N) {
-        allOption.textContent = window.I18N.t("controls.allPeriods");
-      }
+      allOption.textContent = window.I18N
+        ? window.I18N.t("controls.allPeriods")
+        : "全部時段";
     }
 
     if (select.querySelector(`option[value="${previousValue}"]`)) {

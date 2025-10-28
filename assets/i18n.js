@@ -1,138 +1,67 @@
 (function () {
   const STORAGE_KEY = "openStreetArenaLang";
-  const DEFAULT_LANG = "zh-Hans";
+  const DEFAULT_LANG = "zh-Hant";
 
   const translations = {
-    "zh-Hans": {
-      _locale: "zh-CN",
-      documentTitle: "Open Street Arena 地图",
-      language: {
-        en: "English",
-        zhHans: "中文",
-        zhHant: "繁体中文",
-      },
+    "zh-Hant": {
+      _locale: "zh-Hant",
+      documentTitle: "Open Street Arena 地圖",
       topbar: {
         title: "Open Street Arena",
-        languageLabel: "语言",
-        navigation: "页面切换",
+        languageLabel: "語言",
+        navigation: "頁面切換",
       },
       nav: {
-        backHome: "返回首页",
-        map: "擂台地图",
-        leaderboard: "开放街头排行榜",
-        report: "报告袭击事件",
+        backHome: "返回首頁",
+        map: "Open Street Arena 地圖",
+        leaderboard: "Open Street Leader Board",
+        report: "報告襲擊事件",
         all: "查看全部事件",
       },
       controls: {
-        district: "地区",
-        allDistricts: "全部地区",
-        period: "时间段",
-        allPeriods: "全部时段",
-        heat: "热力图",
+        district: "地區",
+        allDistricts: "全部地區",
+        period: "時段",
+        allPeriods: "全部時段",
+        heat: "熱力圖",
       },
       periodLabels: {
         morning: "早",
-        noon: "中",
-        afternoon: "下",
-        evening: "晚",
-        night: "夜",
+        noon: "午",
+        afternoon: "午後",
+        evening: "傍晚",
+        night: "夜間",
         midnight: "半夜",
-        dawn: "凌晨",
+        dawn: "黎明",
         unknown: "未知",
       },
       datasetLabels: {
         "local-json": "本地 JSON (./data/incidents.json)",
         "local-csv": "本地 CSV (./data/incidents.csv)",
         "sheets-csv": "Google Sheets CSV",
-        fallback: "资料来源",
+        fallback: "資料來源",
       },
-      summary: "{label} · 显示 {filtered} / {total}",
-      summaryInitial: "{label} · 事件总数 {total}",
+      summary: "{label} · 顯示 {filtered} / {total}",
+      summaryInitial: "{label} · 事件總數 {total}",
       disclaimer: {
         general:
-          "数据仅供信息参考，来源见事件详情链接；不构成治安判断或执法依据。",
+          "數據僅供資訊參考，來源見事件詳情連結；不構成治安判斷或執法依據。",
       },
       popup: {
-        time: "时间",
-        district: "地区",
-        category: "分类",
-        source: "来源",
-        notes: "备注",
+        time: "時間",
+        district: "地區",
+        category: "分類",
+        source: "來源",
+        notes: "備註",
         noTime: "未提供",
         noSource: "未提供",
-        noNotes: "暂无补充内容",
-        noCategory: "未标注",
-        noDistrict: "未标注",
+        noNotes: "暫無補充內容",
+        noCategory: "未標註",
+        noDistrict: "未標註",
         locationSeparator: " · ",
       },
       messages: {
-        loadFailed: "资料载入失败，请稍后再试。",
-      },
-    },
-    en: {
-      _locale: "en-GB",
-      documentTitle: "Open Street Arena Map",
-      language: {
-        en: "English",
-        zhHans: "Chinese",
-        zhHant: "Traditional Chinese",
-      },
-      topbar: {
-        title: "Open Street Arena",
-        languageLabel: "Language",
-        navigation: "Navigation",
-      },
-      nav: {
-        backHome: "Back to Home",
-        map: "Arena Map",
-        leaderboard: "Open Street Leaderboard",
-        report: "Report an Incident",
-        all: "View All Incidents",
-      },
-      controls: {
-        district: "District",
-        allDistricts: "All Districts",
-        period: "Time Period",
-        allPeriods: "All Periods",
-        heat: "Heatmap",
-      },
-      periodLabels: {
-        morning: "Morning",
-        noon: "Midday",
-        afternoon: "Afternoon",
-        evening: "Evening",
-        night: "Night",
-        midnight: "Midnight",
-        dawn: "Dawn",
-        unknown: "Unknown",
-      },
-      datasetLabels: {
-        "local-json": "Local JSON (./data/incidents.json)",
-        "local-csv": "Local CSV (./data/incidents.csv)",
-        "sheets-csv": "Google Sheets CSV",
-        fallback: "Data source",
-      },
-      summary: "{label} · Showing {filtered} / {total}",
-      summaryInitial: "{label} · Total {total} incidents",
-      disclaimer: {
-        general:
-          "Data is for information only; see incident details for sources. Not an indicator of public safety or law-enforcement advice.",
-      },
-      popup: {
-        time: "Time",
-        district: "District",
-        category: "Category",
-        source: "Source",
-        notes: "Notes",
-        noTime: "Not provided",
-        noSource: "Not provided",
-        noNotes: "No additional notes",
-        noCategory: "Not specified",
-        noDistrict: "Not specified",
-        locationSeparator: " · ",
-      },
-      messages: {
-        loadFailed: "Failed to load data. Please try again later.",
+        loadFailed: "資料載入失敗，請稍後再試。",
       },
     },
   };
@@ -154,7 +83,7 @@
     }
   }
 
-  let currentLang = getStoredLanguage() || DEFAULT_LANG;
+  let currentLang = DEFAULT_LANG;
 
   function resolveKey(lang, key) {
     return key
