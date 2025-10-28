@@ -182,7 +182,7 @@ a:focus-visible {
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  z-index: 18;
+  z-index: 1100;
   width: min(280px, 90vw);
   display: flex;
   flex-direction: column;

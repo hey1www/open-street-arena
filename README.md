@@ -69,6 +69,12 @@ open-street-arena/
 
 > 📌 牢記：所有資源引用皆以相對路徑呈現，例如 `./assets/app.js`、`./data/incidents.json`。在子路徑部署時若使用 `/assets/...` 會造成 404。
 
+## 離線依賴
+
+- Leaflet 1.9.4、Leaflet.markercluster 1.5.3、Leaflet.heat 0.2.0 與 PapaParse 5.4.1 已預先下載至 `vendor/`，地圖與列表頁面皆從本地路徑載入，不再依賴 CDN。
+- 若要升級版本，從官方來源下載對應檔案覆蓋 `vendor/` 目錄（注意 Leaflet CSS 引用的 `images/` 路徑），再同步更新 `index.html` 或其他引用檔案中的版本說明。
+- 對應的 `<link>` 與 `<script>` 標籤已移除 `integrity` 屬性；若重新改用 CDN，請記得重新計算 SRI。
+
 ## 資料格式
 
 欄位順序（CSV）與 JSON 屬性相同：

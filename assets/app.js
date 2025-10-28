@@ -1,13 +1,13 @@
-export const MAP_CENTER = [22.3193, 114.1694];
-export const MAP_ZOOM = 11;
+const MAP_CENTER = [22.3193, 114.1694];
+const MAP_ZOOM = 11;
 
 // 你的 MapTiler Key（已做域名白名单：hey1www.github.io / localhost / 127.0.0.1）
-export const MAPTILER_KEY = "UsHFuxPyoK1ACJQPfu6N";
+const MAPTILER_KEY = "UsHFuxPyoK1ACJQPfu6N";
 
 // 可选样式: 'streets' | 'basic' | 'outdoor' | 'dataviz' | 'toner' ...
-export let MAPTILER_STYLE = "streets";
+let MAPTILER_STYLE = "streets";
 
-export function tileUrl() {
+function tileUrl() {
   const isRetina = (window.devicePixelRatio || 1) > 1.3;
   if (MAPTILER_KEY) {
     const suffix = isRetina ? "@2x.png" : ".png";
@@ -17,7 +17,7 @@ export function tileUrl() {
   return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 }
 
-export function tileAttribution() {
+function tileAttribution() {
   if (MAPTILER_KEY) {
     return '© <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors, © <a href="https://www.maptiler.com/copyright/">MapTiler</a>';
   }
