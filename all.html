@@ -11,19 +11,42 @@
       <header class="topbar" role="banner">
         <a class="topbar__home" href="./index.html">返回地圖</a>
         <span class="topbar__heading">Open Street Arena</span>
-        <details class="topbar__menu" aria-label="頁面切換">
+        <details
+          class="topbar__menu"
+          aria-label="頁面切換"
+          data-i18n="topbar.navigation"
+          data-i18n-attr="aria-label"
+        >
           <summary class="topbar__menu-toggle">
-            <span>其他頁面</span>
+            <span data-i18n="topbar.navigation">其他頁面</span>
           </summary>
           <ul class="topbar__menu-list">
-            <li><a class="topbar__menu-link" href="./index.html">地圖主頁</a></li>
-            <li><a class="topbar__menu-link" href="./leaderboard.html">Open Street Leaderboard</a></li>
+            <li>
+              <a class="topbar__menu-link" href="./index.html" data-i18n="nav.map"
+                >Open Street Arena</a
+              >
+            </li>
+            <li>
+              <a class="topbar__menu-link" href="./leaderboard.html" data-i18n="nav.leaderboard"
+                >Leaderboard</a
+              >
+            </li>
+            <li>
+              <span
+                class="topbar__menu-link topbar__menu-link--disabled topbar__menu-link--current"
+                data-i18n="nav.all"
+                aria-disabled="true"
+                >全部襲擊事件<span class="topbar__menu-current-arrow" aria-hidden="true"
+                  >◂</span
+                ></span>
+            </li>
             <li>
               <span
                 class="topbar__menu-link topbar__menu-link--disabled"
+                data-i18n="nav.report"
                 aria-disabled="true"
                 title="功能未啟用"
-                >報告襲擊事件（未啟用）</span
+                >報告遺漏的襲擊事件（未啟用）</span
               >
             </li>
           </ul>

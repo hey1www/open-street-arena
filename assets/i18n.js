@@ -9,14 +9,14 @@
       topbar: {
         title: "Open Street Arena",
         languageLabel: "語言",
-        navigation: "頁面切換",
+        navigation: "其他頁面",
       },
       nav: {
         backHome: "返回首頁",
-        map: "Open Street Arena 地圖",
-        leaderboard: "Open Street Leader Board",
-        report: "報告襲擊事件",
-        all: "查看全部事件",
+        map: "Open Street Arena",
+        leaderboard: "Leaderboard",
+        report: "報告遺漏的襲擊事件（未啟用）",
+        all: "全部襲擊事件",
       },
       controls: {
         district: "地區",
