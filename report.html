@@ -9,15 +9,25 @@
   <body>
     <div class="page">
       <header class="topbar" role="banner">
-        <div class="topbar__title">
-          <a class="nav-link nav-link--primary" href="./index.html">返回地圖</a>
-          <span>報告襲擊事件</span>
-        </div>
-        <nav class="topbar__nav" aria-label="頁面切換">
-          <a class="nav-link" href="./index.html">Open Street Arena 地圖</a>
-          <a class="nav-link" href="./leaderboard.html">Open Street Leader Board</a>
-          <a class="nav-link" href="./all.html">查看全部事件</a>
-        </nav>
+        <a class="topbar__home" href="./index.html">返回地圖界面</a>
+        <span class="topbar__heading">Open Street Arena</span>
+        <details class="topbar__menu" aria-label="頁面切換">
+          <summary class="topbar__menu-toggle">
+            <span>其他頁面</span>
+          </summary>
+          <ul class="topbar__menu-list">
+            <li><a class="topbar__menu-link" href="./index.html">地圖主頁</a></li>
+            <li><a class="topbar__menu-link" href="./leaderboard.html">Open Street Leaderboard</a></li>
+            <li>
+              <span
+                class="topbar__menu-link topbar__menu-link--disabled"
+                aria-disabled="true"
+                title="功能未啟用"
+                >報告襲擊事件（未啟用）</span
+              >
+            </li>
+          </ul>
+        </details>
       </header>
       <main class="content">
         <section class="card">

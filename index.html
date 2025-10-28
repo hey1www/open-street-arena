@@ -7,7 +7,7 @@
       name="description"
       content="Open Street Arena — 以地圖形式展示香港街頭事件的開源實驗頁面。"
     />
-    <title>Open Street Arena 地圖</title>
+    <title>Open Street Arena</title>
     <link rel="stylesheet" href="./vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="./vendor/leaflet.markercluster/MarkerCluster.css" />
     <link
@@ -19,31 +19,44 @@
   <body>
     <div class="page">
       <header class="topbar" role="banner">
-        <div class="topbar__title">
-          <a
-            class="nav-link nav-link--primary"
-            href="https://hey1www.github.io"
-            data-i18n="nav.backHome"
-            >返回首页</a
-          >
-          <span data-i18n="topbar.title">Open Street Arena</span>
-        </div>
-        <nav
-          class="topbar__nav"
+        <a
+          class="topbar__home"
+          href="https://hey1www.github.io"
+          data-i18n="nav.backHome"
+          >返回首頁</a
+        >
+        <span class="topbar__heading" data-i18n="topbar.title">Open Street Arena</span>
+        <details
+          class="topbar__menu"
           aria-label="页面切换"
           data-i18n="topbar.navigation"
           data-i18n-attr="aria-label"
         >
-          <a class="nav-link" href="./leaderboard.html" data-i18n="nav.leaderboard"
-            >Open Street Leader Board</a
-          >
-          <a class="nav-link" href="./report.html" data-i18n="nav.report"
-            >報告襲擊事件</a
-          >
-          <a class="nav-link" href="./all.html" data-i18n="nav.all"
-            >查看全部事件</a
-          >
-        </nav>
+          <summary class="topbar__menu-toggle">
+            <span data-i18n="topbar.navigation">其他頁面</span>
+          </summary>
+          <ul class="topbar__menu-list">
+            <li>
+              <a class="topbar__menu-link" href="./leaderboard.html" data-i18n="nav.leaderboard"
+                >Open Street Leaderboard</a
+              >
+            </li>
+            <li>
+              <span
+                class="topbar__menu-link topbar__menu-link--disabled"
+                data-i18n="nav.report"
+                aria-disabled="true"
+                title="功能未啟用"
+                >報告襲擊事件</span
+              >
+            </li>
+            <li>
+              <a class="topbar__menu-link" href="./all.html" data-i18n="nav.all"
+                >查看全部事件</a
+              >
+            </li>
+          </ul>
+        </details>
       </header>
       <div class="map-wrapper">
         <div
@@ -77,7 +90,7 @@
         <div id="map" role="application" aria-label="事件地圖"></div>
       </div>
       <footer class="disclaimer" data-i18n="disclaimer.general">
-        數據僅供資訊參考，來源見事件詳情連結；不構成治安判斷或執法依據。
+        數據僅供資訊參考，來源見事件詳情連結。
       </footer>
     </div>
     <script src="./assets/i18n.js"></script>
