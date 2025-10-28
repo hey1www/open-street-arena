@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Street Leader board</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar" role="banner">
+        <div class="topbar__title">
+          <a class="nav-link nav-link--primary" href="./index.html">返回地圖</a>
+          <span>Open Street Leader board</span>
+        </div>
+        <nav class="topbar__nav" aria-label="頁面切換">
+          <a class="nav-link" href="./index.html">Arena 地圖</a>
+          <a class="nav-link" href="./report.html">報告襲擊事件</a>
+          <a class="nav-link" href="./all.html">查看全部事件</a>
+        </nav>
+      </header>
+      <main class="content">
+        <section class="card">
+          <h1 class="section-heading">各區事件排行榜</h1>
+          <p class="section-subheading">
+            基於當前資料來源計算前十名；點擊可帶篩選回到地圖頁。
+          </p>
+          <p class="muted" id="leaderboardDatasetInfo"></p>
+          <ul class="leaderboard-list" id="leaderboardList" aria-live="polite"></ul>
+          <p class="muted hidden" id="leaderboardEmpty">
+            暫無可顯示的事件。
+          </p>
+        </section>
+      </main>
+      <footer class="disclaimer">
+        數據僅供資訊參考，來源見事件詳情連結；不構成治安判斷或執法依據。
+      </footer>
+    </div>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="./assets/districts.js"></script>
+    <script src="./assets/data-loaders.js"></script>
+    <script>
+      (function () {
+        const listEl = document.getElementById("leaderboardList");
+        const datasetInfoEl = document.getElementById("leaderboardDatasetInfo");
+        const emptyEl = document.getElementById("leaderboardEmpty");
+        const searchParams = new URLSearchParams(window.location.search);
+
+        function buildLink(district) {
+          const params = new URLSearchParams();
+          params.set("district", district);
+          if (searchParams.get("source") === "sheets") {
+            params.set("source", "sheets");
+          }
+          return `./index.html?${params.toString()}`;
+        }
+
+        function renderLeaderboard(entries) {
+          listEl.innerHTML = "";
+          if (!entries.length) {
+            emptyEl.classList.remove("hidden");
+            return;
+          }
+          emptyEl.classList.add("hidden");
+          entries.forEach(([district, count], index) => {
+            const item = document.createElement("li");
+            item.className = "leaderboard-item";
+            item.tabIndex = 0;
+            item.dataset.district = district;
+            item.innerHTML = `
+              <span>${index + 1}. ${district}</span>
+              <span class="badge">${count} 件</span>
+            `;
+            const href = buildLink(district);
+            const navigate = () => {
+              window.location.href = href;
+            };
+            item.addEventListener("click", navigate);
+            item.addEventListener("keypress", (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                navigate();
+              }
+            });
+            listEl.appendChild(item);
+          });
+        }
+
+        DataLoaders.loadIncidents(searchParams)
+          .then(({ incidents, label }) => {
+            const counts = incidents.reduce((map, incident) => {
+              const name = incident.district || "未標註";
+              map.set(name, (map.get(name) || 0) + 1);
+              return map;
+            }, new Map());
+            const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+            renderLeaderboard(sorted.slice(0, 10));
+            datasetInfoEl.textContent = `${label || "資料來源"} · 收錄 ${incidents.length} 件事件`;
+          })
+          .catch((error) => {
+            console.error(error);
+            datasetInfoEl.textContent = "資料載入失敗，請稍後再試。";
+            renderLeaderboard([]);
+          });
+      })();
+    </script>
+  </body>
+</html>

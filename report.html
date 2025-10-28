@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>報告襲擊事件 · Open Street Arena</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar" role="banner">
+        <div class="topbar__title">
+          <a class="nav-link nav-link--primary" href="./index.html">返回地圖</a>
+          <span>報告襲擊事件</span>
+        </div>
+        <nav class="topbar__nav" aria-label="頁面切換">
+          <a class="nav-link" href="./index.html">Arena 地圖</a>
+          <a class="nav-link" href="./leaderboard.html">Open Street Leader board</a>
+          <a class="nav-link" href="./all.html">查看全部事件</a>
+        </nav>
+      </header>
+      <main class="content">
+        <section class="card">
+          <h1 class="section-heading">如何回報線索</h1>
+          <p class="section-subheading">
+            本頁提供外部資源連結與占位表單；本專案為靜態展示，並不直接接收或儲存回報內容。
+          </p>
+          <div class="card" style="background: rgba(30, 41, 59, 0.6); border: 1px dashed rgba(148, 163, 184, 0.3);">
+            <h2 class="section-heading" style="font-size: 1.1rem;">優先聯絡官方或可信渠道</h2>
+            <ul style="margin: 0.75rem 0; padding-left: 1.25rem; line-height: 1.6; color: #cbd5f5;">
+              <li>
+                <a href="https://www.police.gov.hk/ppp_ch-01.html" target="_blank" rel="noopener">香港警務處</a>：緊急情況請立即致電 999。
+              </li>
+              <li>
+                <a href="https://www.info.gov.hk/gia/general/today.htm" target="_blank" rel="noopener">新聞發布系統</a>：查閱政府及可信媒體公告。
+              </li>
+              <li>
+                若涉及公共安全，亦可通知所在區議員或社區組織以便跟進。
+              </li>
+            </ul>
+          </div>
+          <p class="muted">
+            以下表單為未連線的占位介面，用於示意未來可能的資訊欄位。送出按鈕為禁用狀態。
+          </p>
+          <form class="form-grid" aria-describedby="formNotice">
+            <label>
+              聯絡電郵
+              <input type="email" name="email" placeholder="your@email.example" disabled />
+            </label>
+            <label>
+              事件標題
+              <input type="text" name="title" placeholder="簡短描述事件" disabled />
+            </label>
+            <label>
+              發生時間
+              <input type="datetime-local" name="datetime" disabled />
+            </label>
+            <label>
+              涉及地區
+              <select name="district" disabled>
+                <option>請於地圖頁確認後提交</option>
+              </select>
+            </label>
+            <label>
+              詳細描述
+              <textarea name="details" placeholder="補充現場情況、目擊資料等..." disabled></textarea>
+            </label>
+            <button type="submit" disabled>送出回報（未啟用）</button>
+            <p class="muted" id="formNotice">
+              本專案為靜態展示，暫不接收線上提交。請改用上方官方通道。
+            </p>
+          </form>
+        </section>
+      </main>
+      <footer class="disclaimer">
+        數據僅供資訊參考，來源見事件詳情連結；不構成治安判斷或執法依據。
+      </footer>
+    </div>
+  </body>
+</html>

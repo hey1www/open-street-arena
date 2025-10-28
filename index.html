@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Open Street Arena — 以地圖形式展示香港街頭事件的開源實驗頁面。"
+    />
+    <title>Open Street Arena 地图</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-o9N1j7kG4SywBibOtXM67DaET2Cs6BYkSt3fM2v+Z9w="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar" role="banner">
+        <div class="topbar__title">
+          <a
+            class="nav-link nav-link--primary"
+            href="https://hey1www.github.io"
+            data-i18n="nav.backHome"
+            >返回首页</a
+          >
+          <span data-i18n="topbar.title">Open Street Arena</span>
+        </div>
+        <div class="language-toggle" role="group" aria-label="language switch">
+          <span class="language-toggle__label" data-i18n="topbar.languageLabel"
+            >语言</span
+          >
+          <div class="language-toggle__buttons">
+            <button
+              type="button"
+              class="language-toggle__button"
+              data-lang="en"
+              data-i18n="language.en"
+              aria-pressed="false"
+            >
+              English
+            </button>
+            <button
+              type="button"
+              class="language-toggle__button"
+              data-lang="zh-Hans"
+              data-i18n="language.zhHans"
+              aria-pressed="false"
+            >
+              中文
+            </button>
+            <button
+              type="button"
+              class="language-toggle__button language-toggle__button--disabled"
+              data-i18n="language.zhHant"
+              data-disabled
+              disabled
+              aria-disabled="true"
+            >
+              繁体中文
+            </button>
+          </div>
+        </div>
+        <nav
+          class="topbar__nav"
+          aria-label="页面切换"
+          data-i18n="topbar.navigation"
+          data-i18n-attr="aria-label"
+        >
+          <a class="nav-link" href="./leaderboard.html" data-i18n="nav.leaderboard"
+            >开放街头排行榜</a
+          >
+          <a class="nav-link" href="./report.html" data-i18n="nav.report"
+            >报告袭击事件</a
+          >
+          <a class="nav-link" href="./all.html" data-i18n="nav.all"
+            >查看全部事件</a
+          >
+        </nav>
+      </header>
+      <div class="map-wrapper">
+        <div
+          class="control-panel"
+          id="control-panel"
+          role="region"
+          aria-label="篩選與檢視控制"
+        >
+          <label for="districtSelect">
+            <span data-i18n="controls.district">地区</span>
+            <select id="districtSelect">
+              <option value="all" data-i18n="controls.allDistricts">
+                全部地区
+              </option>
+            </select>
+          </label>
+          <label for="periodSelect">
+            <span data-i18n="controls.period">时间段</span>
+            <select id="periodSelect">
+              <option value="all" data-i18n="controls.allPeriods">
+                全部时段
+              </option>
+            </select>
+          </label>
+          <label class="toggle" for="heatToggle">
+            <input type="checkbox" id="heatToggle" />
+            <span data-i18n="controls.heat">热力图</span>
+          </label>
+          <p class="muted" id="datasetInfo"></p>
+        </div>
+        <div id="map" role="application" aria-label="事件地圖"></div>
+      </div>
+      <footer class="disclaimer" data-i18n="disclaimer.general">
+        数据仅供信息参考，来源见事件详情链接；不构成治安判断或执法依据。
+      </footer>
+    </div>
+    <script src="./assets/i18n.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-o7V1mWq1AC0+VDaosnQfM5vYDUC2tCjmu/adJb0GpsA="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="./assets/districts.js"></script>
+    <script src="./assets/data-loaders.js"></script>
+    <script src="./assets/ui.js"></script>
+    <script type="module" src="./assets/app.js"></script>
+  </body>
+</html>

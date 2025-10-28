@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>查看全部事件 · Open Street Arena</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar" role="banner">
+        <div class="topbar__title">
+          <a class="nav-link nav-link--primary" href="./index.html">返回地圖</a>
+          <span>查看全部事件</span>
+        </div>
+        <nav class="topbar__nav" aria-label="頁面切換">
+          <a class="nav-link" href="./index.html">Arena 地圖</a>
+          <a class="nav-link" href="./leaderboard.html">Open Street Leader board</a>
+          <a class="nav-link" href="./report.html">報告襲擊事件</a>
+        </nav>
+      </header>
+      <main class="content">
+        <section class="card">
+          <h1 class="section-heading">事件列表</h1>
+          <p class="section-subheading">
+            搜尋標題、地區或分類；點選任一列可回到地圖並高亮該事件。
+          </p>
+          <p class="muted" id="allDatasetInfo"></p>
+          <label class="control-panel" style="position: static; box-shadow: none; padding: 0; background: transparent; gap: 0.75rem;">
+            <span>關鍵字搜尋</span>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="輸入標題、地區或分類"
+              aria-label="關鍵字搜尋"
+            />
+          </label>
+          <div class="table-wrapper" role="region" aria-live="polite">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">標題</th>
+                  <th scope="col">時間</th>
+                  <th scope="col">地區</th>
+                  <th scope="col">分類</th>
+                </tr>
+              </thead>
+              <tbody id="incidentTableBody"></tbody>
+            </table>
+          </div>
+          <p class="muted hidden" id="tableEmpty">找不到符合條件的事件。</p>
+        </section>
+      </main>
+      <footer class="disclaimer">
+        數據僅供資訊參考，來源見事件詳情連結；不構成治安判斷或執法依據。
+      </footer>
+    </div>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="./assets/districts.js"></script>
+    <script src="./assets/data-loaders.js"></script>
+    <script>
+      (function () {
+        const tbody = document.getElementById("incidentTableBody");
+        const searchInput = document.getElementById("searchInput");
+        const datasetInfoEl = document.getElementById("allDatasetInfo");
+        const emptyEl = document.getElementById("tableEmpty");
+        const searchParams = new URLSearchParams(window.location.search);
+        let incidents = [];
+        let filtered = [];
+
+        function formatDateTime(datetime) {
+          if (!datetime) return "未提供";
+          const date = new Date(datetime);
+          if (Number.isNaN(date.getTime())) return "未提供";
+          return date.toLocaleString("zh-HK", { timeZone: "Asia/Hong_Kong" });
+        }
+
+        function buildLink(incident) {
+          const params = new URLSearchParams();
+          params.set("id", incident.id);
+          if (incident.district) {
+            params.set("district", incident.district);
+          }
+          if (searchParams.get("source") === "sheets") {
+            params.set("source", "sheets");
+          }
+          return `./index.html?${params.toString()}`;
+        }
+
+        function renderTable(rows) {
+          tbody.innerHTML = "";
+          if (!rows.length) {
+            emptyEl.classList.remove("hidden");
+            return;
+          }
+          emptyEl.classList.add("hidden");
+          rows.forEach((incident) => {
+            const tr = document.createElement("tr");
+            tr.tabIndex = 0;
+            tr.innerHTML = `
+              <td>${incident.title}</td>
+              <td>${formatDateTime(incident.datetime)}</td>
+              <td>${incident.district || "未標註"}</td>
+              <td>${incident.category || "未分類"}</td>
+            `;
+            const href = buildLink(incident);
+            const navigate = () => {
+              window.location.href = href;
+            };
+            tr.addEventListener("click", navigate);
+            tr.addEventListener("keypress", (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                navigate();
+              }
+            });
+            tbody.appendChild(tr);
+          });
+        }
+
+        function handleSearch() {
+          const keyword = searchInput.value.trim().toLowerCase();
+          if (!keyword) {
+            filtered = [...incidents];
+          } else {
+            filtered = incidents.filter((incident) => {
+              const haystack = [
+                incident.title,
+                incident.district,
+                incident.category,
+              ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+              return haystack.includes(keyword);
+            });
+          }
+          renderTable(filtered);
+        }
+
+        DataLoaders.loadIncidents(searchParams)
+          .then(({ incidents: loaded, label }) => {
+            incidents = [...loaded];
+            filtered = [...incidents];
+            datasetInfoEl.textContent = `${label || "資料來源"} · 共 ${incidents.length} 件事件`;
+            renderTable(filtered);
+          })
+          .catch((error) => {
+            console.error(error);
+            datasetInfoEl.textContent = "資料載入失敗，請稍後再試。";
+            renderTable([]);
+          });
+
+        searchInput.addEventListener("input", handleSearch);
+      })();
+    </script>
+  </body>
+</html>
