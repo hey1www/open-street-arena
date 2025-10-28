@@ -30,6 +30,11 @@ window.__setStyle = (style) => {
   if (window.__tiles) window.__tiles.setUrl(tileUrl());
 };
 
+(function diag() {
+  console.log("[diag] Leaflet loaded:", !!window.L);
+  console.log("[diag] map div:", !!document.getElementById("map"));
+})();
+
 const HEAT_OPTIONS = {
   radius: 22,
   blur: 16,
